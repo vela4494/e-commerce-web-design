@@ -37,7 +37,7 @@
      <ul class="nav navbar-nav navbar-right">
       <%--  <li><a href="<c:url value="deleteUser/${user.uname}"/>">DELETE</a></li> --%>
        <li><a href="#"><span class="glyphicon glyphicon-user"></span>Welcome ${sessionScope.username}</a></li>
-       <li><a href="${pageContext.request.contextPath }/goToCart">My Cart<i class="fa fa-cart-plus" aria-hidden="true"></i></a> </li>
+       <li><a href="cartdisplay">My Cart<i class="fa fa-cart-plus" aria-hidden="true"></i></a> </li>
       <li><a href="index.jsp"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
     </ul>
   </div>

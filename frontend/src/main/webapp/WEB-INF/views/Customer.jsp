@@ -27,6 +27,7 @@ transform: scale(1,2);
 <body>
 <h1><center>Welcome Customer</center></h1>
 <jsp:include page="UserHeader.jsp"></jsp:include>
+<form:form  class="form-horizontal">
 <div class="container">
 <div class="row">
 <c:forEach items="${productList}" var="product">
@@ -38,9 +39,12 @@ transform: scale(1,2);
 		
 		<h5><center>${product.pname}</center></h5>
         <h6><center>Rs. ${product.pprice} /-</center></h6></a>
+        <h6><button  class="btn btn-info btn-lg" name="pid" value="${product.pid}" type = "submit" formmethod="GET" formaction="cart"> 
+      <span class="glyphicon glyphicon-shopping-cart"></span>Add To Cart</button></h6> 
 </div>
 </c:forEach>
 </div>
 </div>
+</form:form>
 </body>
 </html>

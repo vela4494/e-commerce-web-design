@@ -1,114 +1,89 @@
 package com.daoimpl;
 
 import java.util.List;
-
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-
+import com.dao.CartDAO;
 import com.model.Cart;
+import com.model.Product;
 
-@Repository/*("cartDAO")*/
-public class CartDAOImpl /*implements CartDAO*/
+@Repository("cartDAO")
+public class CartDAOImpl implements CartDAO
 {
+	
 	@Autowired
-	SessionFactory sessionFac/*tory*/;
-	public CartDAOImpl(SessionFactory sessionFac)
-	{
-		this.sessionFac = sessionFac;
-		
-	}
-	
-	public void insert(Cart cart)
-	{
-		Session session = sessionFac.openSession();
-		session .beginTransaction();
-		session.persist(cart);
-		session.getTransaction().commit();
-	}
-	
-	
-	@SuppressWarnings("unchecked")
-	public List<Cart> findCartById(String email)
-	{
-		Session session = sessionFac.openSession();
-		List<Cart> cr =null;
-		try 
-		{	
-			session.beginTransaction();
-			cr=(List<Cart>)session
-					.createQuery("from Cart where email= :Email")
-					.setString("Email", email).list();
-			session.getTransaction().commit();
-		}	
-		catch(HibernateException e)
-		{
-			session.getTransaction().rollback();
-			
-		}
-		return cr;
-		
-}
-	public Cart getCartByID(int cartID, String email)
-	{
-		Session session = sessionFac.openSession();
-		Cart cr = null;
+	SessionFactory sessionFactory;
+	public void cartsave(Cart ap) {
+		System.out.println("Cart DAO");
 		try
 		{
-			session.beginTransaction();
-			cr=(Cart)session
-					.createQuery("from Cart where email= :Email and cartProductID= pId")
-					.setString("Email", email).setInteger("pId",cartID).uniqueResult();
-			session.getTransaction().commit();
-			return cr;
-			
-		}catch(HibernateException e)
-		{
-			session.getTransaction().rollback();
-		}
-		return cr;
-		
-	}
-	
-	public void deleteCart(int cartID)
-	{
-		Session session = sessionFac.openSession();
-		session.beginTransaction();
-		Cart cr= (Cart)session.get(Cart.class, cartID);
-		session.delete(cr);
-		session .getTransaction().commit();
-		
-	}
-	
-	public void Update(Cart cr)
-	{
-		Session session = sessionFac.openSession();
-		session.beginTransaction();
-		session.update(cr);
-		session .getTransaction().commit();
-		
-	}
-	
-	@Transactional
-	
-	public boolean addCart(Cart cart) 
-	{
-		try
-		{
-			sessionFac.getCurrentSession().save(cart);
-			return true;
-		}
+		Session session= sessionFactory.openSession();
+		Transaction tx=session.beginTransaction();
+		session.save(ap);
+		tx.commit();
+		session.flush();
+		session.close();
+		} 
 		catch(Exception e)
 		{
-			System.out.println("Exception Arised:"+e);
-			return false;
-		}
+			System.out.println("Error"+e);
+		}		
 	}
+	 public List<Cart> cartlist() {
+	    	Session session =sessionFactory.openSession();
+	    	 Transaction transaction =  session.beginTransaction();
+	    	List<Cart> productList=null;
+	        try {
+	        productList= session.createQuery("from Cart").list();   
+      	    transaction.commit();                 
+        }
+       catch (Exception e) {
+       transaction.rollback();
+       e.printStackTrace();
+	       }
+	     session.close();
+		 return productList;
+	    }
+	 public Product single_object(int productId)
+     {
+        Session session =sessionFactory.openSession();
+       
+	      Transaction transaction =  session.beginTransaction();
+	      List<Product> b4=null;
+	    	try
+	        {
+	    
+          b4 =  session.createQuery("from Product where pid= :productId").setParameter("productId",productId).list();
+      
+          transaction.commit();
+          session.close();             
+	    }        
+	    catch (Exception e) 
+	    {
+         transaction.rollback();
+         e.printStackTrace();
+      }
+	     return b4.get(0);
+     }
+	 public void deleteRow(int productId) {  
+    	   Session session =sessionFactory.openSession();
+     	   Transaction transaction =  session.beginTransaction();
+	       List<Cart> del=null;
+	       try{
+	    	 del=session.createQuery("from Cart where productId=:productId").setParameter("productId", productId).list();
+	          session.delete(del.get(0));
+	          transaction.commit();
+            session.close();
+	    
+	       }
+    catch(Exception e){
+        transaction.rollback();
+        e.printStackTrace();
+  }
 }
 
-	
+}

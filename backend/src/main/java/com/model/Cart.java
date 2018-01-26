@@ -1,83 +1,72 @@
 package com.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 
 @Entity
 @Table
 public class Cart 
-{
-	
-	 
-
+{	
 	@Id
-	@GeneratedValue
-	int cartId;
-	
-	String cartProductName;
-	int cartproductId;
-	
-	@OneToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name="userEmail")
-	User CartUserDetails;
-	
-
-	int cartPrice;
-	int cartQnty;
-	String cartImg;
-	public int getCartId() {
-		return cartId;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column
+private int cartid;
+	@Column
+private int productId;
+	@Column
+private String productName;
+	@Column
+private int productPrice;
+	@Column
+private int quantity;
+	@Column
+private char status;
+	@Column
+private String userName;
+	public int getCartid() {
+		return cartid;
 	}
-	public void setCartId(int cartId) {
-		this.cartId = cartId;
+	public void setCartid(int cartid) {
+		this.cartid = cartid;
 	}
-	public String getCartProductName() {
-		return cartProductName;
+	public int getProductId() {
+		return productId;
 	}
-	public void setCartProductName(String cartProductName) {
-		this.cartProductName = cartProductName;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
-	public int getCartproductId() {
-		return cartproductId;
+	public String getProductName() {
+		return productName;
 	}
-	public void setCartproductId(int cartproductId) {
-		this.cartproductId = cartproductId;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
-	public User getCartUserDetails() {
-		return CartUserDetails;
+	public int getProductPrice() {
+		return productPrice;
 	}
-	public void setCartUserDetails(User cartUserDetails) {
-		CartUserDetails = cartUserDetails;
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
 	}
-	public int getCartPrice() {
-		return cartPrice;
+	public int getQuantity() {
+		return quantity;
 	}
-	public void setCartPrice(int cartPrice) {
-		this.cartPrice = cartPrice;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
-	public int getCartQnty() {
-		return cartQnty;
+	public char getStatus() {
+		return status;
 	}
-	public void setCartQnty(int cartQnty) {
-		this.cartQnty = cartQnty;
+	public void setStatus(char status) {
+		this.status = status;
 	}
-	public String getCartImg() {
-		return cartImg;
+	public String getUserName() {
+		return userName;
 	}
-	public void setCartImg(String cartImg) {
-		this.cartImg = cartImg;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-
-	 
-	
-	
-	
-	
 }
-

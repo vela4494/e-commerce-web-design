@@ -18,6 +18,7 @@ import com.model.Product;
 import com.model.Supplier;
 import com.model.User;
 import com.model.Cart;
+import com.model.Orders;
 
 @Configuration
 @EnableTransactionManagement
@@ -53,6 +54,7 @@ public class DBConfig
 		localSessionFacBuilder.addAnnotatedClass(Category.class);
 		localSessionFacBuilder.addAnnotatedClass(Product.class);
 		localSessionFacBuilder.addAnnotatedClass(Cart.class);
+		localSessionFacBuilder.addAnnotatedClass(Orders.class);
 
 		SessionFactory sessionFactory=localSessionFacBuilder.buildSessionFactory();
 		System.out.println("Session Factory Object Created");

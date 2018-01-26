@@ -45,13 +45,17 @@ public class PageController {
 	{
 		return "Customer";
 	}
-	
+	/*@RequestMapping(value="/cart")
+	public String showcartPage()
+	{
+		return "cart";
+	}*/
 	@RequestMapping(value="/ContectUs")
 	public String showContectUsPage()
 	{
 		return "ContectUs";
 	}
-	@RequestMapping(value="/Check Suppiler")
+	@RequestMapping(value="/Suppiler")
 	public String showSupplierPage()
 	{
 		return "Supplier";

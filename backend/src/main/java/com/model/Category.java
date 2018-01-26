@@ -21,5 +21,3 @@ public class Category {
 		this.catname = catname;
 	}
 }
-	
-	

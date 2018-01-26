@@ -23,7 +23,7 @@ public class AdminController {
 	@Autowired
 	SupplierDAO supplierDAO;
 	
-	@RequestMapping(value="/Admin")
+	@RequestMapping(value="/admin")
 	public String showAdminPage()
 	{
 		return "Admin";

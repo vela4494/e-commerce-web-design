@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spr" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title></title>
+<title>My Store</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf=8">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" >
@@ -43,53 +43,46 @@ tr:hover{background-color:#f5f5f5}
 <br>
 <br>
 <br>
+<h2><b>Cart Information</b></h2>
+<div style="color:blue; text-align:center;">Cart Total:${grandtotal}</div>
+<br><br>
+<div align="center" >
 <div class="container">
-<h4><img alt="" src="${pageContext.request.contextPath}/resources/Images/.jpg"> My Cart</h4>
-<table id="cart" class="table table-hover table-condensed">
+<table class="table table-striped" border="1px">
 <thead>
-<tr>
-<th>Product Name</th>
-<th>Quantity</th>
-<th>Price</th>
-<th>Image</th>
-<th>Total</th>
-<th>Action</th>
-</tr>
-</thead>
+  		<tr>
+  		<th>Product ID</th>
+  			<th>ProductName</th>
+			<th>Quantity</th>
+			<th>SubTotal</th>
+			<th>Image</th>
+			<th>Operation</th>
+			
+			
+			</tr>
+			</thead>
+			<tbody>
+			<c:forEach var="list1" items="${cart1}">
+                <tr>
+                <td><c:out value="${list1.productId}"/></td>
+                 <td><c:out value="${list1.productName}" /></td>
+                 <td><c:out value="${list1.quantity}" /></td>
+                  <td><c:out value="${list1.productPrice*list1.quantity}" /></td>
+                  <td style="width:171px;">
+                  <img src="${pageContext.request.contextPath}/resources/Images/${list1.productId}.jpg" height="75" width="75"></td>
+                  <td><form>
+                  <button  class="btn btn-info btn-lg" name = "productId" value = "${list1.productId}" type = "submit" formmethod="post" formaction="delete1"> <span class="glyphicon glyphicon-trash">Remove</span></button></form></td>
+                </tr>
+            </c:forEach> 
+            </tbody>
+            <tr>
+            <td><a href="Customer" class="btn btn-warning">Continue Shopping</a></td>
 
-<tbody>
-<c:if test="${empty cartInfo }">
-
-<tr><td colspan="7" align="center">No Record Exists</td></tr>
-
-</c:if>
-<c:forEach var="v" varStatus="st" items="${cartInfo }">
-<tr>
-
-<td><c:out value="${c.cartProductName }"></c:out></td>
-<td><c:out value="${c.cartQnty }"></c:out></td>
-<td><c:out value="${c.cartPrice }"></c:out></td> <td><img src="${pageContext.request.contextPath }/resources/Images/<c:out value='${c.cartImg }'></c:out>"/></td>  
-<td><c:out value="${c.cartQnty * c.cartPrice }"></c:out></td>
-<td><a href="${pageContext.request.contextPath }/deletePCart/${c.cartID}" class="btn btn-lg btn-danger"><i class="fa fa-trash="></i> </a><c:out value="${c.cartProductName }"></c:out></td>
-<c:set var="gtot" value="${gtot + c.cartPrice * c.cartQnty }"></c:set>
-
-</tr>
-</c:forEach>
-<tr>
-<td><span class="col-lg-7" align="right"><label>Grand Total</label><c:out value="${gtot }"></c:out></span></td>
-
-</tr>
-
-</tbody>
-
-<tr>
-<td><a href="uhome" class="btn btn-warning">Continue Shopping</a></td>
-
-<c:if test="${not empty cartInfo }">
-<td><a href="/checkout" class="btn btn-success">CheckOut</a></td>
-</c:if>
-</tr>
-</table>
-</div>
-</body>
-</html>
+			<td><a href="ack" class="btn btn-success">Checkout</a></td>
+            </tr>
+            </table>
+            </div>
+            </div>
+            </body>
+            </html>
+            
